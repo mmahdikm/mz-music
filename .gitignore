@@ -1,0 +1,45 @@
+# Private credentials and machine configuration
+.local-signing/
+local.properties
+.env
+.env.*
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+*.mobileprovision
+credentials*.json
+service-account*.json
+
+# Generated builds, reports and device data are never public source
+.gradle/
+.kotlin/
+.tooling/
+.tooling-*.log
+**/build/
+dist/
+validation/
+*.apk
+*.aab
+*.zip
+*.log
+*.hprof
+*.db
+*.db-*
+*.sqlite*
+*.mp3
+*.m4a
+*.wav
+*.flac
+*.ogg
+
+# Editors, virtual environments and host metadata
+.idea/
+*.iml
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.vscode/

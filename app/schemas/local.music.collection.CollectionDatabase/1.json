@@ -1,0 +1,186 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "962afc1637ee933f57952ab35ef2e3e7",
+    "entities": [
+      {
+        "tableName": "playlists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `nameKey` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameKey",
+            "columnName": "nameKey",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_playlists_nameKey",
+            "unique": true,
+            "columnNames": [
+              "nameKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_playlists_nameKey` ON `${TABLE_NAME}` (`nameKey`)"
+          }
+        ]
+      },
+      {
+        "tableName": "playlist_tracks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`playlistId` TEXT NOT NULL, `uri` TEXT NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, `artist` TEXT NOT NULL, `album` TEXT NOT NULL, `artworkUri` TEXT, `durationMs` INTEGER NOT NULL, PRIMARY KEY(`playlistId`, `uri`), FOREIGN KEY(`playlistId`) REFERENCES `playlists`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "playlistId",
+            "columnName": "playlistId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uri",
+            "columnName": "uri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artist",
+            "columnName": "artist",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "album",
+            "columnName": "album",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artworkUri",
+            "columnName": "artworkUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "durationMs",
+            "columnName": "durationMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "playlistId",
+            "uri"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_playlist_tracks_playlistId_position",
+            "unique": false,
+            "columnNames": [
+              "playlistId",
+              "position"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_playlist_tracks_playlistId_position` ON `${TABLE_NAME}` (`playlistId`, `position`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "playlists",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "playlistId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "favorites",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uri` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT NOT NULL, `album` TEXT NOT NULL, `artworkUri` TEXT, `durationMs` INTEGER NOT NULL, PRIMARY KEY(`uri`))",
+        "fields": [
+          {
+            "fieldPath": "uri",
+            "columnName": "uri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artist",
+            "columnName": "artist",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "album",
+            "columnName": "album",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artworkUri",
+            "columnName": "artworkUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "durationMs",
+            "columnName": "durationMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uri"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '962afc1637ee933f57952ab35ef2e3e7')"
+    ]
+  }
+}
